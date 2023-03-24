@@ -9,5 +9,6 @@ class userinfo extends Model
 {
     use HasFactory;
     protected $table = '_userinfo';
-    protected $primarykey = 'uid';
+    protected $primaryKey = 'uid';
+    protected $fillable = ['fname', 'lname', 'email', 'password', 'address', 'city', 'state', 'zip'];
 }
