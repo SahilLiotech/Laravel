@@ -23,7 +23,9 @@ Route::post('/', [RegisterController::class, 'data']);
 
 Route::get('/view', [RegisterController::class, 'view']);
 
-// Route::get('/view-delete/{id}', [RegisterController::class, 'delete']);
-
 
 Route::delete('/delete/{id}', [RegisterController::class, 'delete'])->name('user.destroy');
+
+Route::get('/edit/{id}', [RegisterController::class, 'edit'])->name('users.edit');
+
+Route::post('/edit', [RegisterController::class, 'update']);
