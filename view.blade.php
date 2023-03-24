@@ -15,17 +15,20 @@
 <body>
 
   <a class="btn btn-primary" href="{{url('/')}}" role="button" style="background-color: #7608c9;">Back</a>
+  <div class="bg-dark text-white">
+    <h3 style="text-align: center;">User Data-Table</h3>
+  </div>
   @if (Session::has('success'))
   <div class="alert alert-danger" role="alert">
     {{session::get('success')}}
   </div>
   @endif
-  <div class="container border border-dark mt-5 mb-3" style="width:100%">
+  <div class="container border border-dark mt-5 mb-3">
     <div class="table-responsive">
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <!-- <th scope="col">ID</th> -->
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
@@ -42,7 +45,7 @@
           @foreach ($info as $data)
 
           <tr class="">
-            <td>{{$data->uid}}</td>
+            <!-- <td>{{$data->uid}}</td> -->
             <td>{{$data->fname}}</td>
             <td>{{$data->lname}}</td>
             <td>{{$data->email}}</td>
