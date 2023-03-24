@@ -29,10 +29,6 @@ class RegisterController extends Controller
             ]
         );
 
-        // echo "<pre>";
-        // print_r($request->all());
-        // echo "</pre>";
-
         $info = new userinfo;
         $info->fname = $request['fname'];
         $info->lname = $request['lname'];
@@ -44,7 +40,7 @@ class RegisterController extends Controller
         $info->zip = $request['zip'];
         $info->save();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Record Inserted Successfully');
     }
 
 
@@ -56,20 +52,52 @@ class RegisterController extends Controller
         return view('view')->with($data);
     }
 
+
     public function delete($id)
     {
-        $info = userinfo::find($id);
-        $info->delete();
+        $user = userinfo::find($id);
+
+        if (!is_null($user)) {
+            $user->delete();
+        }
+        return redirect('view')->with('success', 'Record Deleted Successfully');
     }
 
+    public function edit($id)
+    {
+        $user = userinfo::find($id);
+        return view('edit', compact('user'));
+        // return $user;
+    }
 
-    // public function delete($id)
-    // {
-    //     $user = userinfo::whereId($id)->first();
+    public function update(Request $request)
+    {
+        $request->validate(
+            [
+                'fname' => 'required',
+                'lname' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'address' => 'required',
+                'city' => 'required',
+                'zip' => 'required'
+            ]
+        );
+        $id = $request->uid;
 
-    //     $user->delete();
+        $user = userinfo::find($id);
 
-    //     return redirect()->back();
-    // }
+        $user->update([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'email' => $request->email,
+            'password' =>  Hash::make($request->password),
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip' => $request->zip
+        ]);
 
+        return redirect()->back()->with('success', 'Record Updated Succesfully');
+    }
 }
