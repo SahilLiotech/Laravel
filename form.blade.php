@@ -17,6 +17,11 @@
     <div>
       <h2 style="text-align: center;">Registration Form</h2>
     </div>
+    @if (Session::has('success'))
+    <div class="alert alert-success" role="alert">
+      {{session::get('success')}}
+    </div>
+    @endif
     <form action="{{url('/')}}" method="post">
       @csrf
       <x-input type="text" name="fname" label="First Name" />
