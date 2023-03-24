@@ -14,57 +14,64 @@
 
 <body>
 
-  <!-- <div class="container border border-dark mt-5 mb-3" style="width:100%"> -->
-  <div class="table-responsive">
-    <table class="table table-primary">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Password</th>
-          <th scope="col">Address</th>
-          <th scope="col">City</th>
-          <th scope="col">State</th>
-          <th scope="col">ZIp</th>
-          <th scope="col">Action</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($info as $data)
-
-        <tr class="">
-          <td>{{$data->uid}}</td>
-          <td>{{$data->fname}}</td>
-          <td>{{$data->lname}}</td>
-          <td>{{$data->email}}</td>
-          <td>{{$data->password}}</td>
-          <td>{{$data->address}}</td>
-          <td>{{$data->city}}</td>
-          <td>{{$data->state}}</td>
-          <td>{{$data->zip}}</td>
-          <td><a href="#"><button class="btn btn-warning">Edit</button></a></td>
-          <!-- <td><a href="/view-delete/{{$data->uid}}"><button class="btn btn-danger">Delete</button></a>
-          </td> -->
-          <td>
-            <form action="{{ route('user.destroy', $data->uid)}}" method="post">
-              @csrf
-              @method('DELETE')
-              <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+  <a class="btn btn-primary" href="{{url('/')}}" role="button" style="background-color: #7608c9;">Back</a>
+  @if (Session::has('success'))
+  <div class="alert alert-danger" role="alert">
+    {{session::get('success')}}
   </div>
-  <!-- </div> -->
+  @endif
+  <div class="container border border-dark mt-5 mb-3" style="width:100%">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">ZIp</th>
+            <th scope="col">Action</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($info as $data)
 
+          <tr class="">
+            <td>{{$data->uid}}</td>
+            <td>{{$data->fname}}</td>
+            <td>{{$data->lname}}</td>
+            <td>{{$data->email}}</td>
+            <td>{{$data->password}}</td>
+            <td>{{$data->address}}</td>
+            <td>{{$data->city}}</td>
+            <td>{{$data->state}}</td>
+            <td>{{$data->zip}}</td>
+            <!-- <td><a href="#"><button class="btn btn-warning">Edit</button></a></td> -->
+            <td>
+              <form action="{{ route('users.edit', $data->uid)}}" method="get">
+                @csrf
 
-
-
+                <button class="btn btn-warning" type="submit">Edit</button>
+              </form>
+            </td>
+            <td>
+              <form action="{{ route('user.destroy', $data->uid)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
   </script>
